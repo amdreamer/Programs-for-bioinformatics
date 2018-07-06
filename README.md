@@ -21,3 +21,7 @@ Please set the Nth field you want to match by -f, ex: -f 2.
 （1）Grep lines form refFlat files(gene name is in the first field) based on genes in genelist.txt (one gene per line)
  
  grepGenes.py genelist.txt /picb/rnomics1/database/Human/hg38/refFlat.txt output.txt -f 0
+ 
+ ## [grep_longest_isoform.sh](./grep_longest_isoform.sh)
+ ### Usage: grep_longest_isoform.sh input.fa
+ One gene may has more than one isoforms. This program was wrote for greping longest isoform for each gene in a fasta file.
