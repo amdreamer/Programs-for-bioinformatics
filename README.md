@@ -23,5 +23,9 @@ Please set the Nth field you want to match by -f, ex: -f 2.
  grepGenes.py genelist.txt /picb/rnomics1/database/Human/hg38/refFlat.txt output.txt -f 0
  
  ## [grep_longest_isoform.sh](./grep_longest_isoform.sh)
- ### Usage: grep_longest_isoform.sh input.fa
+ ### Usage: grep_longest_isoform.sh input_format input_file
  One gene may has more than one isoforms. This program was wrote for greping longest isoform for each gene in a fasta file.
+ The input format are supporting "fasta" and "genePred" so far.
+ **example:**
+ getLongestIsoform.sh fasta 1564_genelist_cDNA.fa
+ getLongestIsoform.sh genePred /Human/hg38/170823_annotation/refFlat.txt
