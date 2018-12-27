@@ -38,4 +38,5 @@ Please set the Nth field you want to match by -f, ex: -f 2.
 
  input file (list.txt) format: 
  
- columns in list.txt ('GeneSymbol','chr.peak','Start.peak','End.peak','Length.peak','FoldChange.peak','-lgP.value','GeneID','chr.gene','strand','Start.trans','End.trans','Start.cds','End.cds','Exon.num','Start.exon','End.exon')
+ columns in list.txt ('GeneSymbol', 'chr.peak', 'Start.peak', 'End.peak', 'Length.peak', 'FoldChange.peak', 
+ '-lgP.value', 'GeneID', 'chr.gene', 'strand', 'Start.trans', 'End.trans', 'Start.cds', 'End.cds', 'Exon.num', 'Start.exon', 'End.exon' )
