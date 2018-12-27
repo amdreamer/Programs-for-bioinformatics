@@ -24,8 +24,18 @@ Please set the Nth field you want to match by -f, ex: -f 2.
  
  ## [grep_longest_isoform.sh](./grep_longest_isoform.sh)
  ### Usage: grep_longest_isoform.sh input_format input_file
+ 
  One gene may has more than one isoforms. This program was wrote for greping longest isoform for each gene in a fasta file.
  The input format are supporting "fasta" and "genePred" so far.
- **example:**
+
+**example:**
+
  getLongestIsoform.sh fasta 1564_genelist_cDNA.fa
  getLongestIsoform.sh genePred /Human/hg38/170823_annotation/refFlat.txt
+
+ ## [peak_Distribution.py](./peak_Distribution.py)
+ ### Usage: ./peak_dist_test.py list.txt output_prefix
+
+ input file (list.txt) format: 
+ 
+ columns in list.txt ('GeneSymbol','chr.peak','Start.peak','End.peak','Length.peak','FoldChange.peak','-lgP.value','GeneID','chr.gene','strand','Start.trans','End.trans','Start.cds','End.cds','Exon.num','Start.exon','End.exon')
