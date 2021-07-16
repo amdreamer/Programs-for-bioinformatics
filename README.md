@@ -40,3 +40,12 @@ Please set the Nth field you want to match by -f, ex: -f 2.
  
  columns in list.txt ('GeneSymbol', 'chr.peak', 'Start.peak', 'End.peak', 'Length.peak', 'FoldChange.peak', 
  '-lgP.value', 'GeneID', 'chr.gene', 'strand', 'Start.trans', 'End.trans', 'Start.cds', 'End.cds', 'Exon.num', 'Start.exon', 'End.exon' )
+ 
+  ## [sra_download.py](./sra_download.py)
+  ### Usage: ./sra_download.py 
+  ### -sraID_file SRAID_FILE
+  ###                       passing a file with sra IDs, one ID for each line.
+  ### -ID ID [ID ...]       Instead of passing a file with sraID for each line,
+  ###                       user can also input sraID directly by using this
+  ###                       parameter. ex: -ID SRR2121685 SRR2121686 SRR2121687
+  This program can be used for batch downloading fastq files from GEO, using sra IDs.
