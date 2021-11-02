@@ -8,7 +8,7 @@ echo"$0: getLongestIsoform.sh input_format input_file"
 ecgo"Input file format support fasta, genePredExt(gff) or refFlat(A gene prediction with additional geneName field) format so far. correspondingly, filename= *.fa or *.refFlat or *.gff"
 }
 # judge file's format
-if $1 == "fasta"; then
+if [ $1 = "fasta" ] ; then
   # read fasta file
   file = $2
   basename = $(basename $file .fa)
@@ -22,12 +22,12 @@ if $1 == "fasta"; then
   # remove tmp files
   rm $basename.tab $basename.2.tab
 fi
-if $1 == "refFlat"; then
+if [ $1 = "refFlat" ] ; then
  file = $2
  basename = $(basename $file .txt)
  awk '{if (lenTrans[$1]<=$6-$5 && lenCDS[$1]<=$8-$7) {len[$1]=$6-$5;lenCDS[$1]=$8-$7;a[$1]=$0;}}END{for(i in a){print a[i];}}' $2 > $basename.longest.refFlat
 fi
-if $1 == "genePredExt"; then
+if [ $1 = "genePredExt" ] ; then
  file = $2
  basename = $(basename $file .txt)
  awk '{if (lenTrans[$12]<=$5-$4 && lenCDS[$12]<=$7-$6) {len[12]=$5-$4;lenCDS[$12]=$7-$6;a[$12]=$0;}}END{for(i in a){print a[i];}}' $2 > $basename.longest.gff
