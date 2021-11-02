@@ -100,7 +100,7 @@ def _calculate_region_len(Strans,Etrans,Scds,Ecds,Sexon,Eexon,Strand):
     return SEUTR5, EEUTR5, SEcds, EEcds, SEUTR3, EEUTR3, LenUTR5, LenCds, LenUTR3
 
 # read in data.frame
-data = pd.read_table(in_file, sep = '\s+', names=['GeneSymbol','chr.peak','S.peak','E.peak','Len.peak','FC.peak','-lgP.value','GeneID','chr.gene','strand','S.trans','E.trans','S.cds','E.cds','Exon.num','S.exon','E.exon'])
+data = pd.read_table(in_file, header = 0, sep = '\s+', names=['GeneSymbol','chr.peak','S.peak','E.peak','Len.peak','FC.peak','-lgP.value','GeneID','chr.gene','strand','S.trans','E.trans','S.cds','E.cds','Exon.num','S.exon','E.exon'])
 # establish the output table
 UTR5tab, UTR3tab, CDStab = pd.Series(), pd.Series(), pd.Series()
 Len_tab = pd.DataFrame()
