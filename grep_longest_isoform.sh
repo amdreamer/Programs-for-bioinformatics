@@ -3,10 +3,15 @@
 # One gene may has more than one isoforms. This program was wrote for greping longest isoform for each gene in a fasta file.
 # getLongestIsoform.sh input_format input_file output_file
 
-Usage() {
-echo"$0: getLongestIsoform.sh input_format input_file"
-ecgo"Input file format support fasta, genePredExt(gff) or refFlat(A gene prediction with additional geneName field) format so far. correspondingly, filename= *.fa or *.refFlat or *.gff"
+usage() {
+echo "getLongestIsoform.sh input_format input_file"
+echo "Input file format support fasta, genePredExt(gff) or refFlat(A gene prediction with additional geneName field) format so far. correspondingly, filename= *.fa or *.refFlat or *.gff"
 }
+
+if [[ $# == 0 ]] || [[ "$1" == "-h" ]]; then
+  usage
+fi
+
 # judge file's format
 if [ $1 = "fasta" ] ; then
   # read fasta file
