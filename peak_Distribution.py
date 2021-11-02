@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # Author: Meng-Ran Wang <wangmengran@picb.ac.cn>
 # Info: Chip-seq, CHIRP-seq or RIP CHART-seq are able to enrichment the regionthis script is used to calculate the peak distribution in genes, whether the peak is near 3'UTR or 5'UTR.
-# Usage: ./peak_dist_test.py list.txt output_prefix
+# Usage: ./peak_Distribution.py list.txt output_prefix
 # input file format: columns in list.txt ('GeneSymbol','chr.peak','Start.peak','End.peak','Length.peak','FoldChange.peak','-lgP.value','GeneID','chr.gene','strand','Start.trans','End.trans','Start.cds','End.cds','Exon.num','Start.exon','End.exon')
 from __future__ import division
 import re
@@ -136,5 +136,5 @@ print meanLen
 UTR5tab = UTR5tab * meanLen['LenUTR5']
 CDStab = meanLen['LenUTR5'] + CDStab * meanLen['LenCds']
 UTR3tab = meanLen['LenUTR5'] + meanLen['LenCds'] + UTR3tab * meanLen['LenUTR3'] 
-total = UTR3tab.append(CDStab).append(UTR3tab)
+total = UTR5tab.append(CDStab).append(UTR3tab)
 total.to_csv(str(prefix)+'peakDistribution.csv')
