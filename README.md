@@ -49,3 +49,14 @@ Please set the Nth field you want to match by -f, ex: -f 2.
   ####                       user can also input sraID directly by using this
   ####                       parameter. ex: -ID SRR2121685 SRR2121686 SRR2121687
   This program can be used for batch downloading fastq files from GEO, using sra IDs.
+  
+  ## [survival_analysis.R] (./survival_analysis.R)
+  ### Survival analysis of TCGA patients integrating gene expression (MS,proteome) data. This script is similar with https://www.biostars.org/p/153013/.
+  #### to do survival analysis we need three main things:
+  #### time: this is the time till an event happens
+  #### status: this indicates which patients have to be kept for the analysis
+  #### event: this tells i.e. which patients have the gene up- or down-regulated or have no changes in expression
+  #### Since we want to do censored analysis, we need to have something to censor the data with. For example, if a patient has no death data BUT there is a date to last followup it means that after that day we know nothing about the patient, therefore after that day it cannot be used for calculations/Kaplan Meier plot anymore, therefore we censor it. so now we need to create vectors for both 'time to new tumor' and 'time to death' that contain also the data from censored individuals.
+  
+  
+  
