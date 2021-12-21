@@ -1,0 +1,41 @@
+# 选取一个单端测序和双端测序样本
+bam_pairedEnd=TCGA-CM-6163-01A-11R-1653-07Aligned.sortedByCoord.out.bam
+bam_singleEnd=TCGA-AA-A00W-01A-01R-A002-07Aligned.sortedByCoord.out.bam
+
+# 添加-p, 同时输入两个样本
+featureCounts -T 36 -t exon -g gene_name -p \
+-a /scem/work/wangmr/genome/human/hg38/gencode.v38.annotation.gtf \
+-o ./featureCounts_test_mix_withp.txt \
+${bam_pairedEnd} ${bam_singleEnd}
+
+# 不添加-p, 同时输入两个样本
+featureCounts -T 36 -t exon -g gene_name \
+-a /scem/work/wangmr/genome/human/hg38/gencode.v38.annotation.gtf \
+-o ./featureCounts_test_mix_withoutp.txt \
+${bam_pairedEnd} ${bam_singleEnd}
+
+# 添加-p, 只输入双端样本
+featureCounts -T 36 -t exon -g gene_name -p \
+-a /scem/work/wangmr/genome/human/hg38/gencode.v38.annotation.gtf \
+-o ./featureCounts_test_paired_withp.txt \
+${bam_pairedEnd}
+
+# 不添加-p, 只输入单端样本
+featureCounts -T 36 -t exon -g gene_name \
+-a /scem/work/wangmr/genome/human/hg38/gencode.v38.annotation.gtf \
+-o ./featureCounts_test_single_withoutp.txt \
+${bam_singleEnd}
+
+
+# 选出输出结果的一个基因查看情况：
+(py3-biology) mn02 :: ~/TCGA_COAD/03_mapping_hg38_twopass » less -S ./featureCounts_test_mix_withp.txt
+(py3-biology) mn02 :: ~/TCGA_COAD/03_mapping_hg38_twopass » grep 'SLC25A33' ./featureCounts_test_mix_withp.txt
+SLC25A33	chr1;chr1;chr1;chr1;chr1;chr1;chr1	9539465;9553626;9567284;9570258;9573346;9579954;9582299	9539747;9553805;9567361;9570358;9573412;9580234;9585173	+;+;+;+;+;+;+	3865	527	494
+(py3-biology) mn02 :: ~/TCGA_COAD/03_mapping_hg38_twopass » grep 'SLC25A33' ./featureCounts_test_mix_withoutp.txt
+SLC25A33	chr1;chr1;chr1;chr1;chr1;chr1;chr1	9539465;9553626;9567284;9570258;9573346;9579954;9582299	9539747;9553805;9567361;9570358;9573412;9580234;9585173	+;+;+;+;+;+;+	3865	1047	494
+(py3-biology) mn02 :: ~/TCGA_COAD/03_mapping_hg38_twopass »  grep 'SLC25A33' ./featureCounts_test_paired_withp.txt
+SLC25A33	chr1;chr1;chr1;chr1;chr1;chr1;chr1	9539465;9553626;9567284;9570258;9573346;9579954;9582299	9539747;9553805;9567361;9570358;9573412;9580234;9585173	+;+;+;+;+;+;+	3865	527
+(py3-biology) mn02 :: ~/TCGA_COAD/03_mapping_hg38_twopass » grep 'SLC25A33' ./featureCounts_test_single_withoutp.txt
+SLC25A33	chr1;chr1;chr1;chr1;chr1;chr1;chr1	9539465;9553626;9567284;9570258;9573346;9579954;9582299	9539747;9553805;9567361;9570358;9573412;9580234;9585173	+;+;+;+;+;+;+	3865	494
+
+# 结论：当混合输入单端-双端测序时，添加-p参数，此时双端样本按照fragment计算，单端样本按照read计算。此时是公平的统计。如果不加-p，双端read数翻倍，造成错误。
