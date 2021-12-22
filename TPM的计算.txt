@@ -1,0 +1,26 @@
+# 关于TPM的计算，以下两种脚本都是基于featureCounts的raw counts.
+
+# 1，先计算RPK，再计算TPM
+GeneLength = rawData$Length
+RPKData = countData/GeneLength  # reads per kilobase
+scaling_factor = apply(RPKData,2,sum)  
+scaling_factor = scaling_factor/1000000 # “per million” scaling factor.
+TPMData = mapply('/',RPKData,scaling_factor) 
+row.names(TPMData) = rawData$Geneid
+write.table(TPMData,"featureCounts_TPM1.txt",sep="\t",quote = FALSE)
+
+# 2，先计算FPKM，再计算TPM
+fpkmToTpm <- function(fpkm) { # first use log and last return to exponential.
+  exp(log(fpkm) - log(sum(fpkm)) + log(1e6))
+}
+GeneLength = rawData$Length
+Total_reads = apply(countData,2,sum)
+FPKMData = data.frame(sapply(countData, function(column) 10^9 * column / GeneLength / sum(column)))
+FPKMsum = apply(FPKMData,2,sum)
+TPMData = data.frame(apply(FPKMData,2,fpkmToTpm))
+row.names(TPMData) = rawData$Geneid
+write.table(TPMData,"featureCounts_TPM2.txt",sep="\t",quote = FALSE)
+
+此外，还有一个直接从BAM文件计算TPM的方法，TPMcalculator,https://academic.oup.com/bioinformatics/article/35/11/1960/5150437
+
+比较该方法和featureCounts计算TPM的结果，cor = 0.8109207，其中TPMcalculator的TPM值偏高,尤其是RNA7SK等housekeeping RNA genes，可能其包含了multiple mapped reads所致。
